@@ -12,3 +12,9 @@ def test_dolar_mult_by_constant():
 
     product = curret_value.times(7)
     assert product.amount == 35
+
+
+def test_equal_same_currency():
+    assert dollar(5).equals(dollar(5))
+    assert dollar(12).equals(dollar(12))
+    assert not dollar(5).equals(dollar(6))

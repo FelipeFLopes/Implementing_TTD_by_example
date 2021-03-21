@@ -1,4 +1,4 @@
-from multi_currency_money import dollar
+from multi_currency_money import dollar, franc
 
 
 def test_equal_same_currency():
@@ -15,3 +15,13 @@ def test_dolar_mult_by_constant():
     assert dollar(20).equals(curret_value.times(4))
 
     assert dollar(35).equals(curret_value.times(7))
+
+
+def test_franc_mult_by_constant():
+    curret_value = franc(5)
+
+    assert franc(10).equals(curret_value.times(2))
+
+    assert franc(20).equals(curret_value.times(4))
+
+    assert franc(35).equals(curret_value.times(7))

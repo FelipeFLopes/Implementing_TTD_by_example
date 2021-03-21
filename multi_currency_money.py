@@ -6,4 +6,4 @@ class dollar():
         return self.amount == currency.amount
 
     def times(self, multiplier):
-        self.amount *= multiplier
+        return dollar(self.amount * multiplier)

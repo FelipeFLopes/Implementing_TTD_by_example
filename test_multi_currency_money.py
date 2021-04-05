@@ -5,6 +5,9 @@ def test_equal_same_currency():
     assert dollar(5).equals(dollar(5))
     assert dollar(12).equals(dollar(12))
     assert not dollar(5).equals(dollar(6))
+    assert franc(5).equals(franc(5))
+    assert franc(12).equals(franc(12))
+    assert not franc(5).equals(franc(6))
 
 
 def test_dolar_mult_by_constant():

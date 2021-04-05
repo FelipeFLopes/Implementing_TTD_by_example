@@ -1,4 +1,4 @@
-class dollar():
+class money():
     def __init__(self, amount):
         self.amount = amount
 
@@ -9,12 +9,9 @@ class dollar():
         return dollar(self.amount * multiplier)
 
 
-class franc():
-    def __init__(self, amount):
-        self.amount = amount
+class dollar(money):
+    pass
 
-    def equals(self, currency):
-        return self.amount == currency.amount
 
-    def times(self, multiplier):
-        return franc(self.amount * multiplier)
+class franc(money):
+    pass

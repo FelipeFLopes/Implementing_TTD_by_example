@@ -16,6 +16,9 @@ class money():
     def times(self, multiplier):
         return money(self.amount * multiplier, self.currency())
 
+    def plus(self, adder):
+        return money(self.amount + adder.amount, self.currency())
+
     @classmethod
     def dollar(self, amount):
         return money(amount, "USD")
@@ -23,3 +26,11 @@ class money():
     @classmethod
     def franc(self, amount):
         return money(amount, "CHF")
+
+
+class bank():
+    def __init__(self):
+        pass
+
+    def reduce(source, to):
+        return money.dollar(10)

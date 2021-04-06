@@ -1,4 +1,4 @@
-from multi_currency_money import money
+from multi_currency_money import money, bank
 
 
 def test_currency():
@@ -26,3 +26,15 @@ def test_dolar_mult_by_constant():
     assert money.dollar(10).equals(curret_value.times(2))
     assert money.dollar(20).equals(curret_value.times(4))
     assert money.dollar(35).equals(curret_value.times(7))
+
+
+def test_sum_currencies():
+    current_value = money.dollar(5)
+
+    sum = current_value.plus(money.dollar(5))
+
+    bank_ = bank()
+
+    reduced = bank.reduce(sum, "USD")
+
+    assert money.dollar(10).equals(reduced)

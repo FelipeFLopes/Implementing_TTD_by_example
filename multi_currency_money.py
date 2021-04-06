@@ -18,16 +18,8 @@ class money():
 
     @classmethod
     def dollar(self, amount):
-        return dollar(amount, "USD")
+        return money(amount, "USD")
 
     @classmethod
     def franc(self, amount):
-        return franc(amount, "CHF")
-
-
-class dollar(money):
-    pass
-
-
-class franc(money):
-    pass
+        return money(amount, "CHF")

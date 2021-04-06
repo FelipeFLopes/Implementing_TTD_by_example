@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class Expression(ABC):
     @abstractmethod
-    def reduce(self, to):
+    def reduce(self, bank, to):
         pass
 
 
@@ -12,8 +12,17 @@ class Sum(Expression):
         self.augend = augend
         self.addend = addend
 
-    def reduce(self, to):
-        return Money(self.augend.amount + self.augend.amount, to)
+    def reduce(self, bank, to):
+
+        #rate = bank.rate(self.augend.currency(), self.addend.currency())
+
+        augend = self.augend.reduce(bank, to)
+        addend = self.addend.reduce(bank, to)
+
+        return Money(augend.amount + addend.amount, to)
+
+    def plus(self, addend):
+        pass
 
 
 class Money():
@@ -37,8 +46,10 @@ class Money():
     def plus(self, adder):
         return Sum(self, adder)
 
-    def reduce(self, to):
-        return self
+    def reduce(self, bank, to):
+        rate = bank.rate(self.currency(), to)
+
+        return Money(self.amount / rate, to)
 
     @classmethod
     def dollar(self, amount):
@@ -51,7 +62,20 @@ class Money():
 
 class Bank():
     def __init__(self):
-        pass
+        self.rates = {}
 
     def reduce(self, source, to):
-        return source.reduce(to)
+
+        return source.reduce(self, to)
+
+    def rate(self, from_, to):
+        if from_ == to:
+            return 1
+
+        pair = (from_, to)
+
+        return self.rates[pair]
+
+    def add_rate(self, from_, to, rate):
+        pair = (from_, to)
+        self.rates[pair] = rate

@@ -28,14 +28,41 @@ def test_dolar_mult_by_constant():
     assert Money.dollar(35).equals(curret_value.times(7))
 
 
-def test_sum_currencies():
+def test_sum_same_currency():
     current_value = Money.dollar(5)
+
+    bank = Bank()
 
     sum = current_value.plus(Money.dollar(5))
 
-    bank = Bank()
     reduced = bank.reduce(sum, "USD")
     result = bank.reduce(Money.dollar(3), "USD")
 
     assert Money.dollar(10).equals(reduced)
     assert Money.dollar(3).equals(result)
+
+
+def test_rates():
+    bank = Bank()
+
+    rate = bank.rate("USD", "USD")
+
+    assert 1 == rate
+
+
+def test_sum_different_currency():
+    current_value = Money.franc(5)
+
+    sum = current_value.plus(Money.dollar(5))
+
+    bank = Bank()
+    bank.add_rate("CHF", "USD", 2)
+
+    reduced = bank.reduce(sum, "USD")
+
+    assert Money.dollar(7.5).equals(reduced)
+
+    sum = Money.dollar(5).plus(current_value)
+    reduced = bank.reduce(sum, "USD")
+
+    assert Money.dollar(7.5).equals(reduced)

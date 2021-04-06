@@ -1,4 +1,4 @@
-class money():
+class Money():
     def __init__(self, amount, currency):
         self.amount = amount
         self._currency = currency
@@ -14,23 +14,23 @@ class money():
         return self._currency
 
     def times(self, multiplier):
-        return money(self.amount * multiplier, self.currency())
+        return Money(self.amount * multiplier, self.currency())
 
     def plus(self, adder):
-        return money(self.amount + adder.amount, self.currency())
+        return Money(self.amount + adder.amount, self.currency())
 
     @classmethod
     def dollar(self, amount):
-        return money(amount, "USD")
+        return Money(amount, "USD")
 
     @classmethod
     def franc(self, amount):
-        return money(amount, "CHF")
+        return Money(amount, "CHF")
 
 
-class bank():
+class Bank():
     def __init__(self):
         pass
 
-    def reduce(source, to):
-        return money.dollar(10)
+    def reduce(self, source, to):
+        return Money.dollar(10)

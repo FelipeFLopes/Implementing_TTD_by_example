@@ -1,14 +1,11 @@
-from abc import ABC, abstractmethod
-
-
-class money(ABC):
+class money():
     def __init__(self, amount, currency):
         self.amount = amount
         self._currency = currency
 
     def equals(self, currency):
 
-        if type(self) != type(currency):
+        if self.currency() != currency.currency():
             return False
 
         return self.amount == currency.amount
@@ -16,9 +13,8 @@ class money(ABC):
     def currency(self):
         return self._currency
 
-    @abstractmethod
     def times(self, multiplier):
-        pass
+        return money(self.amount * multiplier, self.currency())
 
     @classmethod
     def dollar(self, amount):
@@ -30,12 +26,8 @@ class money(ABC):
 
 
 class dollar(money):
-
-    def times(self, multiplier):
-        return money.dollar(self.amount * multiplier)
+    pass
 
 
 class franc(money):
-
-    def times(self, multiplier):
-        return money.franc(self.amount * multiplier)
+    pass

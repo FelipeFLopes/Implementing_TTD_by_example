@@ -34,7 +34,8 @@ def test_sum_currencies():
     sum = current_value.plus(Money.dollar(5))
 
     bank = Bank()
-
     reduced = bank.reduce(sum, "USD")
+    result = bank.reduce(Money.dollar(3), "USD")
 
     assert Money.dollar(10).equals(reduced)
+    assert Money.dollar(3).equals(result)

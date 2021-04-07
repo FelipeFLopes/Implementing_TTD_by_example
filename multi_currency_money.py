@@ -6,6 +6,14 @@ class Expression(ABC):
     def reduce(self, bank, to):
         pass
 
+    @abstractmethod
+    def plus(self, addend):
+        pass
+
+    @abstractmethod
+    def times(self, multiplier):
+        pass
+
 
 class Sum(Expression):
     def __init__(self, augend, addend):
@@ -14,18 +22,19 @@ class Sum(Expression):
 
     def reduce(self, bank, to):
 
-        #rate = bank.rate(self.augend.currency(), self.addend.currency())
-
         augend = self.augend.reduce(bank, to)
         addend = self.addend.reduce(bank, to)
 
         return Money(augend.amount + addend.amount, to)
 
     def plus(self, addend):
-        pass
+        return Sum(self, addend)
+
+    def times(self, multiplier):
+        return Sum(self.augend.times(multiplier), self.addend.times(multiplier))
 
 
-class Money():
+class Money(Expression):
     def __init__(self, amount, currency):
         self.amount = amount
         self._currency = currency

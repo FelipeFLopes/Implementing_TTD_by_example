@@ -1,4 +1,4 @@
-from multi_currency_money import Money, Bank
+from multi_currency_money import Money, Bank, Sum
 
 
 def test_currency():
@@ -66,3 +66,31 @@ def test_sum_different_currency():
     reduced = bank.reduce(sum, "USD")
 
     assert Money.dollar(7.5).equals(reduced)
+
+
+def test_sum_plus_money():
+    five_bucks = Money.dollar(5)
+    ten_francs = Money.franc(10)
+
+    sum = Sum(five_bucks, ten_francs).plus(Money.dollar(5))
+
+    bank = Bank()
+    bank.add_rate("CHF", "USD", 2)
+
+    reduced = bank.reduce(sum, "USD")
+
+    assert Money.dollar(15).equals(reduced)
+
+
+def test_sum_times():
+    five_bucks = Money.dollar(5)
+    ten_francs = Money.franc(10)
+
+    sum = Sum(five_bucks, ten_francs).times(2)
+
+    bank = Bank()
+    bank.add_rate("CHF", "USD", 2)
+
+    reduced = bank.reduce(sum, "USD")
+
+    assert Money.dollar(20).equals(reduced)
